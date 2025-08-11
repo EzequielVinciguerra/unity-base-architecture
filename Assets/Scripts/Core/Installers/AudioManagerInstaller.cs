@@ -17,16 +17,15 @@ namespace Core.Installers
 
         public override void Install(ServiceLocator locator)
         {
-            // Dependencias
             var bus = locator.Get<IEventBus>();
             if (bus == null)
             {
-                Debug.LogError("[AudioManagerInstaller] IEventBus no encontrado. ¿Instalaste el EventBus antes?");
+                Debug.LogError("[AudioManagerInstaller] IEventBus not found.");
                 return;
             }
             if (mixer == null)
             {
-                Debug.LogError("[AudioManagerInstaller] AudioMixer no asignado.");
+                Debug.LogError("[AudioManagerInstaller] AudioMixer not assigned.");
                 return;
             }
 

@@ -1,9 +1,12 @@
 {
   "LANG_NAME_EN": "Inglés",
   "LANG_NAME_ES": "Español",
+  "LANG_NAME_IT": "Italiano",
+  "LANG_NAME_FR": "Francés",
+  "LANG_NAME_RU": "Ruso",
   "MAINMENU_TITLE": "Menú Principal",
   "SETTINGS_TITLE": "Configuración",
-  "SETTINGS_MUSIC": "Volumen de Música",
+  "SETTINGS_MUSIC": ",Volumen de Músic",
   "SETTINGS_SFX": "Volumen de Efectos",
   "PLAY": "Jugar"
 }

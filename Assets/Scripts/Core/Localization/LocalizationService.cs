@@ -72,6 +72,9 @@ namespace Core.Localization
             {
                 SystemLanguage.English => LanguageId.English,
                 SystemLanguage.Spanish => LanguageId.Spanish,
+                SystemLanguage.Italian =>LanguageId.Italian,
+                SystemLanguage.French => LanguageId.French,
+                SystemLanguage.Russian => LanguageId.Russian,
                 _ => LanguageId.English
             };
             SetLanguage(id);
@@ -158,11 +161,13 @@ namespace Core.Localization
             return ta.text;
         }
 
-        // Map helpers (LanguageId/ISO code)
         public static string ToIsoCode(LanguageId id) => id switch
         {
-            LanguageId.English            => "en",
-            LanguageId.Spanish            => "es",
+            LanguageId.English => "en",
+            LanguageId.Spanish => "es",
+            LanguageId.Italian => "it",
+            LanguageId.French => "fr",
+            LanguageId.Russian => "ru",
             _ => "en"
         };
 
@@ -172,6 +177,9 @@ namespace Core.Localization
             {
                 case "en": return LanguageId.English;
                 case "es": return LanguageId.Spanish;
+                case "it": return LanguageId.Italian;
+                case "fr": return LanguageId.French;
+                case "ru": return LanguageId.Russian;
                 default: return null;
             }
         }

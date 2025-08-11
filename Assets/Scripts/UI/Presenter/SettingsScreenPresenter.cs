@@ -77,7 +77,10 @@ public class SettingsScreenPresenter : BasePresenter
         return new List<(LanguageId, string)>
         {
             (LanguageId.English, loc.Get("LANG_NAME_EN")),
-            (LanguageId.Spanish, loc.Get("LANG_NAME_ES"))
+            (LanguageId.Spanish, loc.Get("LANG_NAME_ES")),
+            (LanguageId.Italian, loc.Get("LANG_NAME_IT")),
+            (LanguageId.French,  loc.Get("LANG_NAME_FR")),
+            (LanguageId.Russian, loc.Get("LANG_NAME_RU"))
         };
     }
     

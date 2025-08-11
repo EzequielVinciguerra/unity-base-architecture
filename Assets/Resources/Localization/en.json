@@ -1,6 +1,9 @@
 {
   "LANG_NAME_EN": "English",
   "LANG_NAME_ES": "Spanish",
+  "LANG_NAME_IT": "Italian",
+  "LANG_NAME_FR": "French",
+  "LANG_NAME_RU": "Russian",
   "MAINMENU_TITLE": "Main Menu",
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_MUSIC": "Music Volume",

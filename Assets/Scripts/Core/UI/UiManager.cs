@@ -47,6 +47,7 @@ namespace Core.UI
         private void Awake()
         {
             _factory = new PresenterFactory();
+            DontDestroyOnLoad(gameObject);
         }
 
         private void OnEnable()

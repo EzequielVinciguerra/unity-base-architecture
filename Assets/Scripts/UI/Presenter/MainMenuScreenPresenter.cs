@@ -1,28 +1,34 @@
 using Core.Events;
+using Core.Scenes;
+using Core.Services;
 using Core.UI;
 using Core.UI.Views;
+using UnityEngine;
 
 namespace Core.UI.Presenters
 {
     public class MainMenuScreenPresenter : BasePresenter
     {
-        private MainMenuScreenBaseView _menuBaseView;
+        private MainMenuScreenView _menuView;
         public MainMenuScreenPresenter(IView view) : base(view) { }
 
         public override void Initialize()
         {
-            _menuBaseView = (MainMenuScreenBaseView)view;
+            _menuView = (MainMenuScreenView)view;
             SubscribeEvents();
         }
 
         public override void SubscribeEvents()
         {
-            _menuBaseView.OnSettingsClicked += HandleSettingsClicked;
+            _menuView.OnSettingsClicked += HandleSettingsClicked;
+            _menuView.OnGoIngameClicked += HandleGoIngameClicked;
         }
+
 
         public override void UnSubscribeEvents()
         {
-            _menuBaseView.OnSettingsClicked -= HandleSettingsClicked;
+            _menuView.OnSettingsClicked -= HandleSettingsClicked;
+            _menuView.OnGoIngameClicked -= HandleGoIngameClicked;
         }
 
         public override void Dispose()
@@ -33,6 +39,10 @@ namespace Core.UI.Presenters
         private void HandleSettingsClicked()
         {
             eventBus.Publish(new ShowView( ScreenId.Settings));
+        }
+        private void HandleGoIngameClicked()
+        {
+            eventBus.Publish(new LoadSceneRequest("Game"));
         }
     }
 }

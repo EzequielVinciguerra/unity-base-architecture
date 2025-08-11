@@ -10,11 +10,11 @@ namespace Core.Boot
     public class GameBootstrapper : MonoBehaviour
     {
         [Header("Start Flow")]
-        [SerializeField] private string mainMenuScene = "MainMenu"; // nombre de la escena a cargar
+        [SerializeField] private string mainMenuScene = "MainMenu"; 
         [SerializeField] private ScreenId mainMenuScreen = ScreenId.MainMenu;
         [SerializeField] private bool dontDestroyOnLoad = true;
 
-        private IEventBus _bus;
+        private IEventBus _eventBus;
 
         private void Awake()
         {
@@ -23,21 +23,20 @@ namespace Core.Boot
 
         private void OnEnable()
         {
-            _bus = ServiceLocator.Instance.Get<IEventBus>();
-            if (_bus == null)
+            _eventBus = ServiceLocator.Instance.Get<IEventBus>();
+            if (_eventBus == null)
             {
-                Debug.LogError("[GameBootstrapper] IEventBus no encontrado. Asegúrate de instalar EventBus antes.");
+                Debug.LogError("[GameBootstrapper] IEventBus not found.");
                 enabled = false;
                 return;
             }
 
-            _bus.Subscribe<SceneLoadCompleted>(OnSceneLoaded);
+            _eventBus.Subscribe<SceneLoadCompleted>(OnSceneLoaded);
         }
 
         private void Start()
         {
-            // Pedimos cargar la escena del Main Menu (Single)
-            _bus.Publish(new LoadSceneRequest(
+            _eventBus.Publish(new LoadSceneRequest(
                 scene: mainMenuScene,
                 additive: false,
                 activateOnLoad: true,
@@ -47,8 +46,8 @@ namespace Core.Boot
 
         private void OnDisable()
         {
-            if (_bus != null)
-                _bus.Unsubscribe<SceneLoadCompleted>(OnSceneLoaded);
+            if (_eventBus != null)
+                _eventBus.Unsubscribe<SceneLoadCompleted>(OnSceneLoaded);
         }
 
         private void OnSceneLoaded(SceneLoadCompleted evt)
@@ -56,7 +55,7 @@ namespace Core.Boot
             if (!string.Equals(evt.Scene, mainMenuScene))
                 return;
 
-            _bus.Publish(new ShowView(ScreenId.MainMenu));
+            _eventBus.Publish(new ShowView(ScreenId.MainMenu));
         }
     }
 }

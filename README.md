@@ -47,3 +47,27 @@ bus.Publish(new LoadSceneRequest(
   activateOnLoad: true,
   cancelPrevious: true
 ));
+```
+
+## Audio
+```csharp
+var audio = ServiceLocator.Instance.Get<IAudioManager>();
+audio.SetMusicVolume(0.8f);
+audio.PlayMusic(introClip, loop:true, fadeSeconds:0.5f);
+audio.PlaySfx(clickClip);
+```
+
+## Demo Features
+
+The included `MainMenu` scene demonstrates:
+- **Main Menu Screen** (`MainMenuScreenView` / `MainMenuScreenPresenter`)
+  - "Settings" button opens a popup.
+  - "Go Ingame" button simulates scene transition.
+- **Settings Popup** (`SettingsScreenView` / `SettingsScreenPresenter`)
+  - Music and SFX volume sliders connected to `AudioManager`.
+  - Changes persist in real time.
+  
+This provides a working example of:
+- How the UI Manager handles screen/popup instantiation via events.
+- Using MVP to decouple view logic from presentation.
+- Integrating `AudioManager` controls into UI.

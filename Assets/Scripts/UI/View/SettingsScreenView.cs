@@ -1,29 +1,42 @@
-using Core.UI.Views;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SettingsScreenBaseView : BaseView
+namespace Core.UI.Views
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SettingsScreenView : BaseView
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        [SerializeField] private Button _closeSettingsButton;
+        [SerializeField] private Slider _musicVolumeSlider;
+        [SerializeField] private Slider _vfxVolumeSlider;
 
-    public override void Initialize()
-    {
-    }
+        public event Action OnCloseClicked;
+        public event Action<float> OnMusicVolumeChanged;
+        public event Action<float> OnVFXVolumeChanged;
 
-    public override void DestroyFeature()
-    {
-    }
+        public override void Initialize()
+        {
+            _closeSettingsButton.onClick.AddListener(() => OnCloseClicked?.Invoke());
+            _musicVolumeSlider.onValueChanged.AddListener((f) => OnMusicVolumeChanged?.Invoke(f));
+            _vfxVolumeSlider.onValueChanged.AddListener((f) => OnVFXVolumeChanged?.Invoke(f));
+        }
 
-    public override void ActiveView(bool active)
-    {
+        public override void DestroyFeature()
+        {
+            _closeSettingsButton.onClick.RemoveAllListeners();
+            _musicVolumeSlider.onValueChanged.RemoveAllListeners();
+            _vfxVolumeSlider.onValueChanged.RemoveAllListeners();
+        }
+
+        public void SetUp(float musicVolume, float vfxVolume)
+        {
+            _musicVolumeSlider.SetValueWithoutNotify(musicVolume);
+            _vfxVolumeSlider.SetValueWithoutNotify(vfxVolume);
+        }
+
+        public override void ActiveView(bool active)
+        {
+        }
     }
 }

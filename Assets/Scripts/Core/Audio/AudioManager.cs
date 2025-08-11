@@ -43,7 +43,10 @@ namespace Core.Audio
 
             _sfxSource = _rootGO.AddComponent<AudioSource>();
             _sfxSource.playOnAwake = false;
-
+            
+            MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+            SfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
+            
             ApplyMixerVolume(_musicParam, MusicVolume);
             ApplyMixerVolume(_sfxParam, SfxVolume);
         }
@@ -52,6 +55,7 @@ namespace Core.Audio
         {
             MusicVolume = Mathf.Clamp01(volumValue);
             ApplyMixerVolume(_musicParam, MusicVolume);
+            PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
             _eventBus.Publish(new MusicVolumeChanged(MusicVolume));
         }
 
@@ -59,6 +63,7 @@ namespace Core.Audio
         {
             SfxVolume = Mathf.Clamp01(volumValue);
             ApplyMixerVolume(_sfxParam, SfxVolume);
+            PlayerPrefs.SetFloat("SfxVolume", SfxVolume);
             _eventBus.Publish(new SfxVolumeChanged (SfxVolume ));
         }
 
